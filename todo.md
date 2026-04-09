@@ -127,26 +127,26 @@ Validation:
 
 ### 3.1 Seed baseline data
 
-- [ ] Insert 8 categories (fixed list from PRD).
-- [ ] Insert at least:
+- [x] Insert 8 categories (fixed list from PRD).
+- [x] Insert at least:
   - 20 workers
   - 50 reviews
   - 30 bookings
-- [ ] Use realistic Indian names and service-area text.
+- [x] Use realistic Indian names and service-area text.
 
 Validation:
 
-- [ ] Worker listing has enough records for sort/filter demos.
-- [ ] Ratings and completed jobs are non-zero for many workers.
+- [x] Worker listing has enough records for sort/filter demos.
+- [x] Ratings and completed jobs are non-zero for many workers.
 
 ### 3.2 Verify data quality
 
-- [ ] Ensure no broken FK references.
-- [ ] Ensure slots align with worker IDs.
+- [x] Ensure no broken FK references.
+- [x] Ensure slots align with worker IDs.
 
 Validation:
 
-- [ ] SQL checks return 0 orphan rows.
+- [x] SQL checks return 0 orphan rows.
 
 ---
 
