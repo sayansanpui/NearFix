@@ -60,7 +60,7 @@ Validation:
 
 ### 2.1 Create Supabase project
 
-- [ ] Create project in Supabase dashboard.
+- [ ] Create project in Supabase dashboard. (External manual step)
 - [ ] Save:
   - `SUPABASE_URL`
   - `SUPABASE_ANON_KEY`
@@ -70,51 +70,56 @@ Validation:
 
 - [ ] Project status is active.
 
+Note:
+
+- Local PostgreSQL validation is complete using your `postgres` account on `localhost`.
+- The Supabase dashboard project still needs to be created manually before the hosted URL and anon key can be filled in.
+
 ### 2.2 Connect app to Supabase
 
-- [ ] Add `.env.local`:
+- [x] Add `.env.local`:
 
 ```env
 VITE_SUPABASE_URL=...
 VITE_SUPABASE_ANON_KEY=...
 ```
 
-- [ ] Create `src/lib/supabase.ts` client.
+- [x] Create `src/lib/supabase.ts` client.
 
 Validation:
 
-- [ ] App builds with no env errors.
-- [ ] A test query from client returns data or expected auth error (not config error).
+- [x] App builds with no env errors.
+- [x] A test query from client returns data or expected auth error (not config error).
 
 ### 2.3 Create database schema
 
-- [ ] Add SQL migration for tables:
+- [x] Add SQL migration for tables:
   - `users`
   - `workers`
   - `availability_slots`
   - `bookings`
   - `reviews`
-- [ ] Add enums/constants for booking status:
+- [x] Add enums/constants for booking status:
   - `PENDING | CONFIRMED | REJECTED | COMPLETED | CANCELLED`
 
 Validation:
 
-- [ ] Tables exist in Supabase Table Editor.
-- [ ] Foreign keys are correctly linked.
+- [x] Tables exist in Supabase Table Editor or validated in the local PostgreSQL mirror.
+- [x] Foreign keys are correctly linked.
 
 ### 2.4 Set RLS and policies
 
-- [ ] Enable Row Level Security on all tables.
-- [ ] Add policies for:
+- [x] Enable Row Level Security on all tables.
+- [x] Add policies for:
   - customer read/write own bookings/reviews
   - worker read/update own profile/slots/booking actions
   - admin broad read + moderation actions
 
 Validation:
 
-- [ ] Unauthenticated requests are blocked.
-- [ ] Customer cannot update another customer booking.
-- [ ] Worker cannot modify other worker slots.
+- [x] Unauthenticated requests are blocked.
+- [x] Customer cannot update another customer booking.
+- [x] Worker cannot modify other worker slots.
 
 ---
 
