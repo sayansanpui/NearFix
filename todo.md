@@ -60,20 +60,20 @@ Validation:
 
 ### 2.1 Create Supabase project
 
-- [ ] Create project in Supabase dashboard. (External manual step)
-- [ ] Save:
-  - `SUPABASE_URL`
-  - `SUPABASE_ANON_KEY`
-  - `SUPABASE_SERVICE_ROLE_KEY` (for admin scripts only)
+- [x] Create project in Supabase (`nearfix`).
+- [x] Save:
+  - `SUPABASE_URL` (saved in `nearfix-web/.env.local` and `nearfix-web/.env.admin.local`)
+  - `SUPABASE_ANON_KEY` (saved in `nearfix-web/.env.local`)
+  - `SUPABASE_SERVICE_ROLE_KEY` (saved in `nearfix-web/.env.admin.local`, local-only)
 
 Validation:
 
-- [ ] Project status is active.
+- [x] Project status is `ACTIVE` (`ACTIVE_HEALTHY`).
 
 Note:
 
 - Local PostgreSQL validation is complete using your `postgres` account on `localhost`.
-- The Supabase dashboard project still needs to be created manually before the hosted URL and anon key can be filled in.
+- Supabase project was provisioned via Supabase CLI and linked values were stored in local ignored env files.
 
 ### 2.2 Connect app to Supabase
 
