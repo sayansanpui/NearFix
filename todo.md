@@ -13,7 +13,7 @@
 
 ### 1.1 Create frontend app
 
-- [ ] Run:
+- [x] Run:
 
 ```bash
 npm create vite@latest nearfix-web -- --template react-ts
@@ -21,17 +21,17 @@ cd nearfix-web
 npm install
 ```
 
-- [ ] Create first commit: `chore: bootstrap vite react-ts app`
+- [x] Create first commit: `chore: bootstrap vite react-ts app`
 
 Validation:
 
-- [ ] `npm run dev` starts without errors.
-- [ ] App opens at `http://localhost:5173`.
-- [ ] Default Vite page is visible.
+- [x] `npm run dev` starts without errors.
+- [x] App opens at `http://localhost:5173` (or next free port if 5173 is already occupied).
+- [x] Default Vite page is visible.
 
 ### 1.2 Install core dependencies
 
-- [ ] Run:
+- [x] Run:
 
 ```bash
 npm install react-router-dom @tanstack/react-query react-hook-form zod @hookform/resolvers @supabase/supabase-js clsx
@@ -41,18 +41,18 @@ npx tailwindcss init -p
 
 Validation:
 
-- [ ] `package.json` contains all dependencies.
-- [ ] `npm run dev` still works.
+- [x] `package.json` contains all dependencies.
+- [x] `npm run dev` still works.
 
 ### 1.3 Configure Tailwind
 
-- [ ] Update `tailwind.config.*` content paths.
-- [ ] Add Tailwind directives in global CSS.
-- [ ] Replace starter UI with one Tailwind-styled page.
+- [x] Update `tailwind.config.*` content paths.
+- [x] Add Tailwind directives in global CSS.
+- [x] Replace starter UI with one Tailwind-styled page.
 
 Validation:
 
-- [ ] Utility classes (e.g., `bg-blue-600`) visually apply.
+- [x] Utility classes (e.g., `bg-blue-600`) visually apply.
 
 ---
 
