@@ -531,37 +531,41 @@ Validation:
 
 ## 12) Non-Functional Checks
 
+Reference:
+
+- See `nearfix-web/docs/non-functional-checks.md` for evidence and measured results.
+
 ### 12.1 Performance
 
-- [ ] Home and workers page load quickly on localhost.
+- [x] Home and workers page load quickly on localhost.
 
 Validation:
 
-- [ ] Typical pages load in around 2 seconds or better on local machine.
+- [x] Typical pages load in around 2 seconds or better on local machine.
 
 ### 12.2 Responsiveness
 
-- [ ] Test mobile, tablet, desktop breakpoints.
+- [x] Test mobile, tablet, desktop breakpoints.
 
 Validation:
 
-- [ ] No overflow/cutoff on key pages.
+- [x] No overflow/cutoff on key pages.
 
 ### 12.3 Type safety
 
-- [ ] Run TypeScript checks.
+- [x] Run TypeScript checks.
 
 Validation:
 
-- [ ] No type errors.
+- [x] No type errors.
 
 ### 12.4 Code quality
 
-- [ ] Reusable components for cards, forms, status badges, modals.
+- [x] Reusable components for cards, forms, status badges, modals.
 
 Validation:
 
-- [ ] No major duplicated UI logic.
+- [x] No major duplicated UI logic.
 
 ---
 
