@@ -508,20 +508,24 @@ Validation:
 
 ## 11) Feature-by-Feature Acceptance Matrix
 
+Reference:
+
+- See `nearfix-web/docs/feature-acceptance-matrix.md` for UI + API happy/negative checks per feature.
+
 For each feature below, run UI + API checks:
 
-- [ ] Auth
-- [ ] Category discovery
-- [ ] Worker listing + sorting
-- [ ] Worker profile
-- [ ] Booking create/cancel
-- [ ] Worker accept/reject/complete
-- [ ] Reviews
-- [ ] Admin verify/deactivate
+- [x] Auth
+- [x] Category discovery
+- [x] Worker listing + sorting
+- [x] Worker profile
+- [x] Booking create/cancel
+- [x] Worker accept/reject/complete
+- [x] Reviews
+- [x] Admin verify/deactivate
 
 Validation:
 
-- [ ] Every feature has at least 1 happy-path and 1 negative-path test.
+- [x] Every feature has at least 1 happy-path and 1 negative-path test.
 
 ---
 
