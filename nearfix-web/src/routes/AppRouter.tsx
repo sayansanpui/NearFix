@@ -1,4 +1,5 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { AuthProvider, ProtectedRoute } from '../features/auth'
 import { AppLayout } from '../layouts/AppLayout'
 import { AdminDashboardPage } from '../pages/AdminDashboardPage'
 import { BookWorkerPage } from '../pages/BookWorkerPage'
@@ -14,23 +15,46 @@ import { WorkersPage } from '../pages/WorkersPage'
 
 export function AppRouter() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<AppLayout />}>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignupPage />} />
-          <Route path="/categories" element={<CategoriesPage />} />
-          <Route path="/workers" element={<WorkersPage />} />
-          <Route path="/workers/:id" element={<WorkerDetailsPage />} />
-          <Route path="/book/:workerId" element={<BookWorkerPage />} />
-          <Route path="/my-bookings" element={<MyBookingsPage />} />
-          <Route path="/worker/dashboard" element={<WorkerDashboardPage />} />
-          <Route path="/admin/dashboard" element={<AdminDashboardPage />} />
-          <Route path="/home" element={<Navigate to="/" replace />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<AppLayout />}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignupPage />} />
+            <Route path="/categories" element={<CategoriesPage />} />
+            <Route path="/workers" element={<WorkersPage />} />
+            <Route path="/workers/:id" element={<WorkerDetailsPage />} />
+            <Route path="/book/:workerId" element={<BookWorkerPage />} />
+            <Route
+              path="/my-bookings"
+              element={
+                <ProtectedRoute>
+                  <MyBookingsPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/worker/dashboard"
+              element={
+                <ProtectedRoute allowedRoles={['worker']}>
+                  <WorkerDashboardPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/dashboard"
+              element={
+                <ProtectedRoute allowedRoles={['admin']}>
+                  <AdminDashboardPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/home" element={<Navigate to="/" replace />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   )
 }

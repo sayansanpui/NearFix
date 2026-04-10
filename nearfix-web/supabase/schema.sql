@@ -86,6 +86,15 @@ create policy "users can read own profile"
   for select
   using (auth.uid() is not null and auth.uid() = auth_user_id);
 
+create policy "users can insert own profile"
+  on public.users
+  for insert
+  with check (
+    auth.uid() is not null
+    and auth.uid() = auth_user_id
+    and role in ('customer', 'worker')
+  );
+
 create policy "users can update own profile"
   on public.users
   for update

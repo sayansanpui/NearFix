@@ -9,6 +9,7 @@ create table if not exists public.categories (
 
 create table if not exists public.users (
   id uuid primary key default gen_random_uuid(),
+  auth_user_id uuid unique,
   name text not null,
   email text not null unique,
   role text not null check (role in ('customer', 'worker', 'admin')),

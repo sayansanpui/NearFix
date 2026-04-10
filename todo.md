@@ -211,23 +211,23 @@ Validation:
 
 ### 5.1 Build auth pages
 
-- [ ] Signup, login, logout using Supabase Auth.
-- [ ] Create/maintain role in DB profile (`customer`/`worker`/`admin`).
+- [x] Signup, login, logout using Supabase Auth.
+- [x] Create/maintain role in DB profile (`customer`/`worker`/`admin`).
 
 Validation:
 
-- [ ] User can sign up, log in, log out.
-- [ ] Session persists after refresh.
+- [x] User can sign up, log in, log out.
+- [x] Session persists after refresh.
 
 ### 5.2 Protected routes
 
-- [ ] Add route guard component.
-- [ ] Restrict worker/admin routes by role.
+- [x] Add route guard component.
+- [x] Restrict worker/admin routes by role.
 
 Validation:
 
-- [ ] Customer opening worker/admin routes gets redirected/blocked.
-- [ ] Worker can open worker dashboard only.
+- [x] Customer opening worker/admin routes gets redirected/blocked.
+- [x] Worker can open worker dashboard only.
 
 ---
 

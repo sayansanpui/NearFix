@@ -14,11 +14,11 @@ export type UserRole = 'customer' | 'worker' | 'admin'
 
 export interface UserProfile {
   id: string
+  auth_user_id: string | null
   name: string
   email: string
   role: UserRole
   created_at: string
-  is_active: boolean
 }
 
 export interface WorkerProfile {

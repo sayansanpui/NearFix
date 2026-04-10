@@ -1,4 +1,5 @@
 import { Link, NavLink, Outlet } from 'react-router-dom'
+import { useAuth } from '../features/auth'
 
 const navItems = [
   { to: '/', label: 'Home' },
@@ -16,6 +17,12 @@ function navClassName(isActive: boolean) {
 }
 
 export function AppLayout() {
+  const { isAuthenticated, profile, signOut } = useAuth()
+
+  async function handleSignOut() {
+    await signOut()
+  }
+
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
       <header className="border-b border-slate-200 bg-white">
@@ -30,17 +37,30 @@ export function AppLayout() {
               </NavLink>
             ))}
           </nav>
-          <div className="flex items-center gap-2">
-            <Link
-              to="/login"
-              className="rounded-md border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
-            >
-              Login
-            </Link>
-            <Link to="/signup" className="rounded-md bg-blue-600 px-3 py-2 text-sm font-medium text-white transition hover:bg-blue-700">
-              Sign up
-            </Link>
-          </div>
+          {isAuthenticated ? (
+            <div className="flex items-center gap-2">
+              <span className="rounded-md bg-slate-100 px-2.5 py-1 text-xs font-medium uppercase text-slate-600">{profile?.role ?? 'user'}</span>
+              <button
+                type="button"
+                onClick={handleSignOut}
+                className="rounded-md border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+              >
+                Logout
+              </button>
+            </div>
+          ) : (
+            <div className="flex items-center gap-2">
+              <Link
+                to="/login"
+                className="rounded-md border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+              >
+                Login
+              </Link>
+              <Link to="/signup" className="rounded-md bg-blue-600 px-3 py-2 text-sm font-medium text-white transition hover:bg-blue-700">
+                Sign up
+              </Link>
+            </div>
+          )}
         </div>
       </header>
 
