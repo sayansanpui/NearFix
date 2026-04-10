@@ -25,11 +25,18 @@ export function AppRouter() {
             <Route path="/categories" element={<CategoriesPage />} />
             <Route path="/workers" element={<WorkersPage />} />
             <Route path="/workers/:id" element={<WorkerDetailsPage />} />
-            <Route path="/book/:workerId" element={<BookWorkerPage />} />
+            <Route
+              path="/book/:workerId"
+              element={
+                <ProtectedRoute allowedRoles={['customer']}>
+                  <BookWorkerPage />
+                </ProtectedRoute>
+              }
+            />
             <Route
               path="/my-bookings"
               element={
-                <ProtectedRoute>
+                <ProtectedRoute allowedRoles={['customer']}>
                   <MyBookingsPage />
                 </ProtectedRoute>
               }

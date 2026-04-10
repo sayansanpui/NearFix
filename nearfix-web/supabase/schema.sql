@@ -86,6 +86,11 @@ create policy "users can read own profile"
   for select
   using (auth.uid() is not null and auth.uid() = auth_user_id);
 
+create policy "public can read worker identities"
+  on public.users
+  for select
+  using (role = 'worker');
+
 create policy "users can insert own profile"
   on public.users
   for insert
@@ -154,6 +159,30 @@ create policy "workers can manage own slots"
       where w.id = public.availability_slots.worker_id
         and u.auth_user_id = auth.uid()
         and u.role = 'worker'
+    )
+  );
+
+create policy "customers can update slots linked to own booking"
+  on public.availability_slots
+  for update
+  using (
+    exists (
+      select 1
+      from public.bookings b
+      join public.users u on u.id = b.customer_id
+      where b.slot_id = public.availability_slots.id
+        and u.auth_user_id = auth.uid()
+        and u.role = 'customer'
+    )
+  )
+  with check (
+    exists (
+      select 1
+      from public.bookings b
+      join public.users u on u.id = b.customer_id
+      where b.slot_id = public.availability_slots.id
+        and u.auth_user_id = auth.uid()
+        and u.role = 'customer'
     )
   );
 

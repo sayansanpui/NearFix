@@ -235,7 +235,7 @@ Validation:
 
 ### 6.1 Landing page
 
-- [ ] Build polished sections:
+- [x] Build polished sections:
   - Hero
   - Category shortcuts
   - How it works
@@ -245,72 +245,72 @@ Validation:
 
 Validation:
 
-- [ ] Mobile + desktop responsive.
-- [ ] Lighthouse performance acceptable for prototype.
+- [x] Mobile + desktop responsive.
+- [x] Lighthouse performance acceptable for prototype.
 
 ### 6.2 Category page
 
-- [ ] Show card grid with icon + title.
-- [ ] Category click navigates to worker listing.
+- [x] Show card grid with icon + title.
+- [x] Category click navigates to worker listing.
 
 Validation:
 
-- [ ] All 8 categories visible and clickable.
+- [x] All 8 categories visible and clickable.
 
 ### 6.3 Worker listing page
 
-- [ ] Worker card shows:
+- [x] Worker card shows:
   - image, name, category, experience, rating
   - total jobs, starting price, availability today
   - verified badge
-- [ ] Add sorting:
+- [x] Add sorting:
   - highest rated
   - lowest price
   - most experienced
 
 Validation:
 
-- [ ] Sorting changes ordering correctly.
+- [x] Sorting changes ordering correctly.
 
 ### 6.4 Worker profile page
 
-- [ ] Show required sections:
+- [x] Show required sections:
   - photo, bio, skills, experience, pricing
   - service area, available slots, ratings list, completed jobs
-- [ ] Add `Book Now` CTA.
+- [x] Add `Book Now` CTA.
 
 Validation:
 
-- [ ] Worker profile loads from live DB data.
+- [x] Worker profile loads from live DB data.
 
 ### 6.5 Booking flow page
 
-- [ ] Steps:
+- [x] Steps:
   1. choose date
   2. choose slot
   3. issue description
   4. confirm
-- [ ] Create booking with initial status `PENDING`.
+- [x] Create booking with initial status `PENDING`.
 
 Validation:
 
-- [ ] Booking record is inserted.
-- [ ] Slot is marked booked.
-- [ ] Customer sees booking in `My Bookings`.
+- [x] Booking record is inserted.
+- [x] Slot is marked booked.
+- [x] Customer sees booking in `My Bookings`.
 
 ### 6.6 My bookings page
 
-- [ ] Show bookings with status badges.
-- [ ] Allow cancel for allowed statuses.
+- [x] Show bookings with status badges.
+- [x] Allow cancel for allowed statuses.
 
 Validation:
 
-- [ ] Cancel updates status to `CANCELLED`.
+- [x] Cancel updates status to `CANCELLED`.
 
 ### 6.7 Review submission
 
-- [ ] Allow review only for `COMPLETED` booking.
-- [ ] Fields:
+- [x] Allow review only for `COMPLETED` booking.
+- [x] Fields:
   - rating (1-5)
   - text
   - punctuality
@@ -319,8 +319,8 @@ Validation:
 
 Validation:
 
-- [ ] Review is blocked before completion.
-- [ ] Review appears in worker profile and updates average rating.
+- [x] Review is blocked before completion.
+- [x] Review appears in worker profile and updates average rating.
 
 ---
 

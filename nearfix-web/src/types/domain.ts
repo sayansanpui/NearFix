@@ -38,9 +38,9 @@ export interface WorkerProfile {
 export interface AvailabilitySlot {
   id: string
   worker_id: string
-  slot_date: string
-  slot_start: string
-  slot_end: string
+  date: string
+  start_time: string
+  end_time: string
   is_booked: boolean
   created_at: string
 }
@@ -50,10 +50,11 @@ export interface Booking {
   customer_id: string
   worker_id: string
   slot_id: string
-  issue_description: string
+  description: string
   status: BookingStatus
-  scheduled_at: string
+  price: number
   created_at: string
+  updated_at: string
 }
 
 export interface Review {
@@ -62,7 +63,7 @@ export interface Review {
   customer_id: string
   worker_id: string
   rating: number
-  text: string | null
+  review: string
   punctuality: number
   work_quality: number
   behavior: number
