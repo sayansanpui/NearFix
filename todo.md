@@ -378,8 +378,8 @@ Use one of these approaches:
 
 Checklist:
 
-- [ ] Create API endpoint list document (`docs/api-endpoints.md`) including method, URL, auth, request body, success/error response.
-- [ ] Ensure every major workflow has API support:
+- [x] Create API endpoint list document (`docs/api-endpoints.md`) including method, URL, auth, request body, success/error response.
+- [x] Ensure every major workflow has API support:
   - auth/session
   - workers list/detail/sort
   - slot CRUD
@@ -389,7 +389,7 @@ Checklist:
 
 Validation:
 
-- [ ] Endpoint doc is complete and matches implementation.
+- [x] Endpoint doc is complete and matches implementation.
 
 ---
 
