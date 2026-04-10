@@ -13,6 +13,7 @@ create table if not exists public.users (
   name text not null,
   email text not null unique,
   role text not null check (role in ('customer', 'worker', 'admin')),
+  is_active boolean not null default true,
   created_at timestamptz not null default now()
 );
 

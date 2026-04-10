@@ -355,17 +355,17 @@ Validation:
 
 ### 8.1 Admin pages/tables
 
-- [ ] Users table
-- [ ] Workers table
-- [ ] Bookings table
-- [ ] Verification approval actions
-- [ ] Review moderation actions
+- [x] Users table
+- [x] Workers table
+- [x] Bookings table
+- [x] Verification approval actions
+- [x] Review moderation actions
 
 Validation:
 
-- [ ] Admin can toggle worker verified badge.
-- [ ] Admin can deactivate suspicious user.
-- [ ] Non-admin cannot access dashboard.
+- [x] Admin can toggle worker verified badge.
+- [x] Admin can deactivate suspicious user.
+- [x] Non-admin cannot access dashboard.
 
 ---
 

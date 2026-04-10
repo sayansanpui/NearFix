@@ -13,6 +13,7 @@ create table if not exists public.users (
   name text not null,
   email text not null unique,
   role text not null check (role in ('customer', 'worker', 'admin')),
+  is_active boolean not null default true,
   created_at timestamptz not null default now()
 );
 
@@ -306,6 +307,26 @@ create policy "admin can read all users"
   on public.users
   for select
   using (
+    exists (
+      select 1
+      from public.users u
+      where u.auth_user_id = auth.uid()
+        and u.role = 'admin'
+    )
+  );
+
+create policy "admin can manage users"
+  on public.users
+  for update
+  using (
+    exists (
+      select 1
+      from public.users u
+      where u.auth_user_id = auth.uid()
+        and u.role = 'admin'
+    )
+  )
+  with check (
     exists (
       select 1
       from public.users u
