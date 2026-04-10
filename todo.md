@@ -571,13 +571,17 @@ Validation:
 
 ## 13) Demo-Ready Checklist
 
-- [ ] Seed data fresh and realistic.
-- [ ] Demo accounts ready:
+Reference:
+
+- See `nearfix-web/docs/demo-ready-checklist.md` for pre-demo runbook and verification steps.
+
+- [x] Seed data fresh and realistic.
+- [x] Demo accounts ready:
   - customer
   - worker
   - admin
-- [ ] Postman collection and environment cleaned and exported.
-- [ ] README includes:
+- [x] Postman collection and environment cleaned and exported.
+- [x] README includes:
   - setup steps
   - architecture note
   - route map
@@ -586,7 +590,7 @@ Validation:
 
 Validation:
 
-- [ ] You can demo complete flow in under 10 minutes:
+- [x] You can demo complete flow in under 10 minutes:
   1. Customer books
   2. Worker accepts and completes
   3. Customer reviews
