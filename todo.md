@@ -626,11 +626,15 @@ If asked during build:
 
 ## 15) Suggested Execution Order (Quick Index)
 
-- [ ] Week 1: Setup + DB + Auth + Routing
-- [ ] Week 2: Worker discovery + profile + booking
-- [ ] Week 3: Worker/admin dashboards + reviews
-- [ ] Week 4: Postman MCP full API test suite + polish + demo prep
+Reference:
+
+- See `nearfix-web/docs/execution-order-log.md` for week-wise completion and validation evidence.
+
+- [x] Week 1: Setup + DB + Auth + Routing
+- [x] Week 2: Worker discovery + profile + booking
+- [x] Week 3: Worker/admin dashboards + reviews
+- [x] Week 4: Postman MCP full API test suite + polish + demo prep
 
 Validation:
 
-- [ ] End of each week: run collection regression + manual UI smoke test.
+- [x] End of each week: run collection regression + manual UI smoke test.
