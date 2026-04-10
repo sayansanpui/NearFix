@@ -328,26 +328,26 @@ Validation:
 
 ### 7.1 Dashboard sections
 
-- [ ] Today bookings
-- [ ] Pending requests
-- [ ] Completed jobs
-- [ ] Earnings (mock/simulated)
-- [ ] Rating summary
-- [ ] Slot management
+- [x] Today bookings
+- [x] Pending requests
+- [x] Completed jobs
+- [x] Earnings (mock/simulated)
+- [x] Rating summary
+- [x] Slot management
 
 Validation:
 
-- [ ] Pending booking can be accepted/rejected.
-- [ ] Accepted booking status becomes `CONFIRMED`.
-- [ ] Worker can mark confirmed booking as `COMPLETED`.
+- [x] Pending booking can be accepted/rejected.
+- [x] Accepted booking status becomes `CONFIRMED`.
+- [x] Worker can mark confirmed booking as `COMPLETED`.
 
 ### 7.2 Slot management
 
-- [ ] Worker creates, edits, removes availability slots.
+- [x] Worker creates, edits, removes availability slots.
 
 Validation:
 
-- [ ] Newly created slot appears in customer booking flow.
+- [x] Newly created slot appears in customer booking flow.
 
 ---
 

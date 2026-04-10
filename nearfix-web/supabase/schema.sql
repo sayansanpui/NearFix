@@ -212,6 +212,30 @@ create policy "workers can read assigned bookings"
     )
   );
 
+create policy "workers can update assigned bookings"
+  on public.bookings
+  for update
+  using (
+    exists (
+      select 1
+      from public.workers w
+      join public.users u on u.id = w.user_id
+      where w.id = public.bookings.worker_id
+        and u.auth_user_id = auth.uid()
+        and u.role = 'worker'
+    )
+  )
+  with check (
+    exists (
+      select 1
+      from public.workers w
+      join public.users u on u.id = w.user_id
+      where w.id = public.bookings.worker_id
+        and u.auth_user_id = auth.uid()
+        and u.role = 'worker'
+    )
+  );
+
 create policy "customers can create bookings"
   on public.bookings
   for insert
