@@ -154,7 +154,7 @@ Validation:
 
 ### 4.1 Create folder structure
 
-- [ ] Use structure:
+- [x] Use structure:
 
 ```txt
 src/
@@ -175,21 +175,21 @@ src/
 
 Validation:
 
-- [ ] Structure matches PRD.
+- [x] Structure matches PRD.
 
 ### 4.2 Add shared types/constants
 
-- [ ] Define TypeScript types for all entities.
-- [ ] Add `BookingStatus` enum/union in one place.
-- [ ] Add category constants from PRD in one file.
+- [x] Define TypeScript types for all entities.
+- [x] Add `BookingStatus` enum/union in one place.
+- [x] Add category constants from PRD in one file.
 
 Validation:
 
-- [ ] No hardcoded status/category strings scattered in components.
+- [x] No hardcoded status/category strings scattered in components.
 
 ### 4.3 Routing skeleton
 
-- [ ] Add routes:
+- [x] Add routes:
   - `/`
   - `/login`
   - `/signup`
@@ -203,7 +203,7 @@ Validation:
 
 Validation:
 
-- [ ] Every route renders a page without runtime crash.
+- [x] Every route renders a page without runtime crash.
 
 ---
 
