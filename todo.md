@@ -600,6 +600,14 @@ Validation:
 
 ## 14) Strict Scope Guard (Do not build now)
 
+Reference:
+
+- See `nearfix-web/docs/strict-scope-guard.md` for the audit and enforcement rule.
+
+- [x] Excluded MVP features are not implemented in source code.
+- [x] Excluded items are documented as Phase 2 placeholders only.
+- [x] Enforcement rule is documented for future requests.
+
 Do not implement in MVP:
 
 - real payment gateway
