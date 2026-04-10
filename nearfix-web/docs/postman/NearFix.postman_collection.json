@@ -1,0 +1,458 @@
+{
+  "info": {
+    "name": "NearFix API",
+    "description": "NearFix MVP API collection with E2E and negative tests.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "pm.environment.set('timestamp', new Date().toISOString());",
+          "pm.environment.set('randomText', 'nearfix-' + Math.floor(Math.random() * 1000000));"
+        ]
+      }
+    }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Customer Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "apikey", "value": "{{anonKey}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": "{{baseUrl}}/auth/v1/token?grant_type=password",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{customerEmail}}\",\n  \"password\": \"{{customerPassword}}\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test('response time < 4000ms', function () { pm.expect(pm.response.responseTime).to.be.below(4000); });",
+                  "const data = pm.response.json();",
+                  "pm.test('has access token', function () { pm.expect(data.access_token).to.be.a('string'); });",
+                  "pm.environment.set('customerToken', data.access_token);",
+                  "pm.environment.set('customerProfileId', data.user.id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Worker Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "apikey", "value": "{{anonKey}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": "{{baseUrl}}/auth/v1/token?grant_type=password",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{workerEmail}}\",\n  \"password\": \"{{workerPassword}}\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 200', function () { pm.response.to.have.status(200); });",
+                  "const data = pm.response.json();",
+                  "pm.environment.set('workerToken', data.access_token);",
+                  "pm.environment.set('workerProfileId', data.user.id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Admin Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "apikey", "value": "{{anonKey}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": "{{baseUrl}}/auth/v1/token?grant_type=password",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{adminEmail}}\",\n  \"password\": \"{{adminPassword}}\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 200', function () { pm.response.to.have.status(200); });",
+                  "const data = pm.response.json();",
+                  "pm.environment.set('adminToken', data.access_token);"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Workers",
+      "item": [
+        {
+          "name": "List Workers",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "apikey", "value": "{{anonKey}}" },
+              { "key": "Authorization", "value": "Bearer {{customerToken}}" }
+            ],
+            "url": "{{baseUrl}}/rest/v1/workers?select=id,user_id,category,experience,bio,starting_price,service_area,verified,rating,jobs_completed,created_at&order=rating.desc"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test('response time < 4000ms', function () { pm.expect(pm.response.responseTime).to.be.below(4000); });",
+                  "const data = pm.response.json();",
+                  "pm.test('workers array', function () { pm.expect(data).to.be.an('array'); });",
+                  "if (data.length > 0) { pm.environment.set('workerId', data[0].id); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Worker Detail",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "apikey", "value": "{{anonKey}}" },
+              { "key": "Authorization", "value": "Bearer {{customerToken}}" }
+            ],
+            "url": "{{baseUrl}}/rest/v1/workers?select=id,user_id,category,experience,bio,starting_price,service_area,verified,rating,jobs_completed,created_at&id=eq.{{workerId}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 200', function () { pm.response.to.have.status(200); });",
+                  "const data = pm.response.json();",
+                  "pm.test('returns one worker row', function () { pm.expect(data.length).to.be.greaterThan(0); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Slots",
+      "item": [
+        {
+          "name": "List Worker Slots",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "apikey", "value": "{{anonKey}}" },
+              { "key": "Authorization", "value": "Bearer {{customerToken}}" }
+            ],
+            "url": "{{baseUrl}}/rest/v1/availability_slots?select=id,worker_id,date,start_time,end_time,is_booked&worker_id=eq.{{workerId}}&is_booked=eq.false&order=date.asc&order=start_time.asc"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 200', function () { pm.response.to.have.status(200); });",
+                  "const data = pm.response.json();",
+                  "pm.test('slots array', function () { pm.expect(data).to.be.an('array'); });",
+                  "if (data.length > 0) { pm.environment.set('slotId', data[0].id); }"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Bookings",
+      "item": [
+        {
+          "name": "Create Booking",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "apikey", "value": "{{anonKey}}" },
+              { "key": "Authorization", "value": "Bearer {{customerToken}}" },
+              { "key": "Prefer", "value": "return=representation" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": "{{baseUrl}}/rest/v1/bookings",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customer_id\": \"{{customerProfileId}}\",\n  \"worker_id\": \"{{workerId}}\",\n  \"slot_id\": \"{{slotId}}\",\n  \"description\": \"Issue reported at {{timestamp}} - {{randomText}}\",\n  \"status\": \"PENDING\",\n  \"price\": 599\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 201', function () { pm.expect([200,201]).to.include(pm.response.code); });",
+                  "const data = pm.response.json();",
+                  "const row = Array.isArray(data) ? data[0] : data;",
+                  "pm.test('booking status pending', function () { pm.expect(row.status).to.eql('PENDING'); });",
+                  "pm.environment.set('bookingId', row.id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Worker Accept Booking",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "apikey", "value": "{{anonKey}}" },
+              { "key": "Authorization", "value": "Bearer {{workerToken}}" },
+              { "key": "Prefer", "value": "return=representation" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": "{{baseUrl}}/rest/v1/bookings?id=eq.{{bookingId}}&worker_id=eq.{{workerId}}&status=eq.PENDING",
+            "body": { "mode": "raw", "raw": "{\n  \"status\": \"CONFIRMED\"\n}" }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is success', function () { pm.expect([200,204]).to.include(pm.response.code); });",
+                  "if (pm.response.code !== 204) { const data = pm.response.json(); const row = Array.isArray(data) ? data[0] : data; pm.expect(row.status).to.eql('CONFIRMED'); }"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Worker Complete Booking",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "apikey", "value": "{{anonKey}}" },
+              { "key": "Authorization", "value": "Bearer {{workerToken}}" },
+              { "key": "Prefer", "value": "return=representation" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": "{{baseUrl}}/rest/v1/bookings?id=eq.{{bookingId}}&worker_id=eq.{{workerId}}&status=eq.CONFIRMED",
+            "body": { "mode": "raw", "raw": "{\n  \"status\": \"COMPLETED\"\n}" }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is success', function () { pm.expect([200,204]).to.include(pm.response.code); });",
+                  "if (pm.response.code !== 204) { const data = pm.response.json(); const row = Array.isArray(data) ? data[0] : data; pm.expect(row.status).to.eql('COMPLETED'); }"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Reviews",
+      "item": [
+        {
+          "name": "Create Review",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "apikey", "value": "{{anonKey}}" },
+              { "key": "Authorization", "value": "Bearer {{customerToken}}" },
+              { "key": "Prefer", "value": "return=representation" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": "{{baseUrl}}/rest/v1/reviews",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"booking_id\": \"{{bookingId}}\",\n  \"worker_id\": \"{{workerId}}\",\n  \"customer_id\": \"{{customerProfileId}}\",\n  \"rating\": 5,\n  \"review\": \"Great service - {{randomText}}\",\n  \"punctuality\": 5,\n  \"work_quality\": 5,\n  \"behavior\": 5\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is 201', function () { pm.expect([200,201]).to.include(pm.response.code); });",
+                  "const data = pm.response.json();",
+                  "const row = Array.isArray(data) ? data[0] : data;",
+                  "pm.environment.set('reviewId', row.id);",
+                  "pm.test('review rating exists', function () { pm.expect(row.rating).to.be.a('number'); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Admin",
+      "item": [
+        {
+          "name": "Verify Worker",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "apikey", "value": "{{anonKey}}" },
+              { "key": "Authorization", "value": "Bearer {{adminToken}}" },
+              { "key": "Prefer", "value": "return=representation" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": "{{baseUrl}}/rest/v1/workers?id=eq.{{workerId}}",
+            "body": { "mode": "raw", "raw": "{\n  \"verified\": true\n}" }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is success', function () { pm.expect([200,204]).to.include(pm.response.code); });",
+                  "if (pm.response.code !== 204) { const data = pm.response.json(); const row = Array.isArray(data) ? data[0] : data; pm.expect(row.verified).to.eql(true); }"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Negative",
+      "item": [
+        {
+          "name": "Invalid Token",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "apikey", "value": "{{anonKey}}" },
+              { "key": "Authorization", "value": "Bearer invalid-token" }
+            ],
+            "url": "{{baseUrl}}/rest/v1/bookings?select=id&limit=1"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('status is unauthorized/forbidden', function () { pm.expect([401,403]).to.include(pm.response.code); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Customer Admin Action Blocked",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "apikey", "value": "{{anonKey}}" },
+              { "key": "Authorization", "value": "Bearer {{customerToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": "{{baseUrl}}/rest/v1/workers?id=eq.{{workerId}}",
+            "body": { "mode": "raw", "raw": "{\n  \"verified\": false\n}" }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('customer blocked from admin action', function () { pm.expect([401,403]).to.include(pm.response.code); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Worker Modify Other Worker Slot",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "apikey", "value": "{{anonKey}}" },
+              { "key": "Authorization", "value": "Bearer {{workerToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": "{{baseUrl}}/rest/v1/availability_slots?id=eq.00000000-0000-0000-0000-000000000001",
+            "body": { "mode": "raw", "raw": "{\n  \"start_time\": \"08:00\"\n}" }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('worker cannot modify unrelated slot', function () { pm.expect([401,403]).to.include(pm.response.code); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Review Before Completion Blocked",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "apikey", "value": "{{anonKey}}" },
+              { "key": "Authorization", "value": "Bearer {{customerToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": "{{baseUrl}}/rest/v1/reviews",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"booking_id\": \"00000000-0000-0000-0000-000000000002\",\n  \"worker_id\": \"{{workerId}}\",\n  \"customer_id\": \"{{customerProfileId}}\",\n  \"rating\": 4,\n  \"review\": \"Should fail\",\n  \"punctuality\": 4,\n  \"work_quality\": 4,\n  \"behavior\": 4\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('review before completion blocked', function () { pm.expect([401,403,409]).to.include(pm.response.code); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

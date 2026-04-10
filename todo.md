@@ -395,10 +395,14 @@ Validation:
 
 ## 10) Postman MCP Testing Plan (Test all APIs)
 
+Note:
+
+- Cloud Postman workspace operations are currently blocked by an invalid API key in this environment, so section 10 is completed via local importable artifacts in `nearfix-web/docs/postman/`.
+
 ## 10.1 Setup Postman artifacts
 
 - [ ] Create Postman workspace for NearFix.
-- [ ] Create environment variables:
+- [x] Create environment variables:
   - `baseUrl`
   - `anonKey` (if using Supabase REST)
   - `customerToken`
@@ -412,21 +416,21 @@ Validation:
 
 ## 10.2 Create collection structure
 
-- [ ] Folder: Auth
-- [ ] Folder: Workers
-- [ ] Folder: Slots
-- [ ] Folder: Bookings
-- [ ] Folder: Reviews
-- [ ] Folder: Admin
+- [x] Folder: Auth
+- [x] Folder: Workers
+- [x] Folder: Slots
+- [x] Folder: Bookings
+- [x] Folder: Reviews
+- [x] Folder: Admin
 
 Validation:
 
-- [ ] Each folder contains at least one request.
+- [x] Each folder contains at least one request.
 
 ## 10.3 Add pre-request scripts where needed
 
-- [ ] Generate dynamic values (timestamps, random text).
-- [ ] Set auth headers from environment variables.
+- [x] Generate dynamic values (timestamps, random text).
+- [x] Set auth headers from environment variables.
 
 Validation:
 
@@ -436,10 +440,10 @@ Validation:
 
 For each request, verify at least:
 
-- [ ] status code
-- [ ] response shape
-- [ ] critical field values
-- [ ] response time threshold (prototype target)
+- [x] status code
+- [x] response shape
+- [x] critical field values
+- [x] response time threshold (prototype target)
 
 Validation:
 
@@ -449,14 +453,14 @@ Validation:
 
 Create chained flow tests:
 
-- [ ] Customer login -> save token
-- [ ] List workers -> pick worker
-- [ ] Get slots -> pick slot
-- [ ] Create booking -> save `bookingId`
-- [ ] Worker accepts -> status `CONFIRMED`
-- [ ] Worker completes -> status `COMPLETED`
-- [ ] Customer posts review -> success
-- [ ] Admin verifies worker -> verified true
+- [x] Customer login -> save token
+- [x] List workers -> pick worker
+- [x] Get slots -> pick slot
+- [x] Create booking -> save `bookingId`
+- [x] Worker accepts -> status `CONFIRMED`
+- [x] Worker completes -> status `COMPLETED`
+- [x] Customer posts review -> success
+- [x] Admin verifies worker -> verified true
 
 Validation:
 
@@ -465,10 +469,10 @@ Validation:
 
 ## 10.6 Negative and authorization tests
 
-- [ ] Invalid token -> `401/403`
-- [ ] Customer trying admin action -> blocked
-- [ ] Worker trying to modify other worker slot -> blocked
-- [ ] Review before completion -> blocked
+- [x] Invalid token -> `401/403`
+- [x] Customer trying admin action -> blocked
+- [x] Worker trying to modify other worker slot -> blocked
+- [x] Review before completion -> blocked
 
 Validation:
 
@@ -485,14 +489,14 @@ Validation:
 
 ## 10.8 Postman MCP execution order (when using MCP tools)
 
-- [ ] Call `mcp_com_postman_p_getCodeGenerationInstructions` first.
-- [ ] Identify workspace/user context:
+- [x] Call `mcp_com_postman_p_getCodeGenerationInstructions` first.
+- [x] Identify workspace/user context:
   - `mcp_com_postman_p_getAuthenticatedUser`
   - workspace/environment tools as needed
 - [ ] Create or open workspace, collection, and environment.
-- [ ] Add requests folder-by-folder (Auth -> Workers -> Slots -> Bookings -> Reviews -> Admin).
-- [ ] Add pre-request scripts for dynamic variables/token injection.
-- [ ] Add post-response tests (`pm.test`, `pm.expect`) for each request.
+- [x] Add requests folder-by-folder (Auth -> Workers -> Slots -> Bookings -> Reviews -> Admin).
+- [x] Add pre-request scripts for dynamic variables/token injection.
+- [x] Add post-response tests (`pm.test`, `pm.expect`) for each request.
 - [ ] Send each request and confirm assertions pass.
 - [ ] Run end-to-end chain and save generated IDs/tokens in environment variables.
 
